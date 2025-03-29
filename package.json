@@ -1,14 +1,48 @@
 {
-  "name": "",
+  "name": "TechnoDoc",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "mock": "npx mcs -w",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prepare": "husky",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,html,astro}\"",
+    "pretty": "pnpm format && yarn lint --fix"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,astro}": "eslint --fix"
   },
   "dependencies": {
-    "astro": "^5.5.5"
+    "@astrojs/react": "^4.2.2",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@siberiacancode/fetches": "^1.9.4",
+    "@tailwindcss/vite": "^4.0.17",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "astro": "^5.5.5",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.5.2",
+    "embla-carousel-react": "^8.5.2",
+    "lint-staged": "^15.5.0",
+    "lucide-react": "^0.485.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwind": "^4.0.0",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.0.17",
+    "tw-animate-css": "^1.2.5"
+  },
+  "devDependencies": {
+    "@siberiacancode/eslint": "^2.9.0",
+    "@siberiacancode/prettier": "^1.3.0",
+    "husky": "^9.1.7",
+    "mock-config-server": "^4.0.3",
+    "prettier": "3.5.3",
+    "prettier-plugin-astro": "0.14.1"
   }
 }

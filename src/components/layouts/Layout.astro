@@ -1,0 +1,18 @@
+---
+import { Header } from "./components";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="src/index.css" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  <body class="px-100 py-5 flex flex-col gap-10">
+    <Header />
+    <slot />
+  </body>
+</html>
