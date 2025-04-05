@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "@/utils/helpers/cn";
 
 const createComponent = <T extends HTMLElement>(
   tag: any,

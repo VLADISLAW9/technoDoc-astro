@@ -1,0 +1,11 @@
+---
+import { Cloud } from "lucide-react";
+import { Cart } from "./components/Cart/Cart";
+---
+
+<header
+  class="flex items-center justify-between bg-amber-500 px-6 py-3 rounded-3xl"
+>
+  <Cloud size={50} color="white" />
+  <Cart client:load />
+</header>
