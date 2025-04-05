@@ -1,8 +1,10 @@
 import { useLocalStorage } from "@mantine/hooks";
 
-type UseAddToCartButtonParams = Product;
+type UseAddProductToCartButtonParams = Product;
 
-export const useAddToCartButton = (product: UseAddToCartButtonParams) => {
+export const useAddProductToCartButton = (
+  product: UseAddProductToCartButtonParams,
+) => {
   const [cart, setCart] = useLocalStorage<Product[]>({
     key: "cart",
     defaultValue: [],

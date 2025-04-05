@@ -1,11 +1,12 @@
 ---
 import { Cloud } from "lucide-react";
 import { Cart } from "./components/Cart/Cart";
+import { ROUTES } from "@/utils/constants";
 ---
 
-<header
-  class="flex items-center justify-between bg-amber-500 px-6 py-3 rounded-3xl"
->
-  <Cloud size={50} color="white" />
+<header class="flex items-center justify-between px-100 bg-primary py-3">
+  <a href={ROUTES.HOME}>
+    <Cloud size={50} color="white" />
+  </a>
   <Cart client:load />
 </header>

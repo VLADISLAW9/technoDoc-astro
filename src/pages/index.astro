@@ -7,26 +7,42 @@ import ProductListItem from "./_components/ProductListItem/ProductListItem.astro
 const products = await fetch(`${import.meta.env.API_URL}/products`).then(
   (response): Promise<Product[]> => response.json(),
 );
+
+const banners = await fetch(`${import.meta.env.API_URL}/banners`).then(
+  (response): Promise<Banner[]> => response.json(),
+);
+
+const newProducts = products.slice(0, 8);
+
+const popularPhones = products.filter(
+  (product) => product.category === "phone",
+);
+
+const popularLaptops = products.filter(
+  (product) => product.category === "laptop",
+);
 ---
 
 <Layout>
-  <AdvertisingCarousel client:load />
-  <section>
-    <H1>Новинки</H1>
-    <ul class="grid mt-10 grid-cols-4 gap-4">
-      {products.map((product) => <ProductListItem {...product} />)}
-    </ul>
-  </section>
-  <section>
-    <H1>Популярные смартфоны</H1>
-    <ul class="grid mt-10 grid-cols-4 gap-4">
-      {products.map((product) => <ProductListItem {...product} />)}
-    </ul>
-  </section>
-  <section>
-    <H1>Выгодные ноутбуки</H1>
-    <ul class="grid mt-10 grid-cols-4 gap-4">
-      {products.map((product) => <ProductListItem {...product} />)}
-    </ul>
-  </section>
+  <AdvertisingCarousel banners={banners} client:load />
+  <div class="px-100 flex flex-col gap-10">
+    <section class="mt-10">
+      <H1>Новинки</H1>
+      <ul class="grid mt-10 grid-cols-4 gap-4">
+        {newProducts.map((product) => <ProductListItem {...product} />)}
+      </ul>
+    </section>
+    <section>
+      <H1>Популярные смартфоны</H1>
+      <ul class="grid mt-10 grid-cols-4 gap-4">
+        {popularPhones.map((product) => <ProductListItem {...product} />)}
+      </ul>
+    </section>
+    <section>
+      <H1>Выгодные ноутбуки</H1>
+      <ul class="grid mt-10 grid-cols-4 gap-4">
+        {popularLaptops.map((product) => <ProductListItem {...product} />)}
+      </ul>
+    </section>
+  </div>
 </Layout>

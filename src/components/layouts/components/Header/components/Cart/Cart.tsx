@@ -7,6 +7,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Small } from "@/components/ui/typography";
+import { ROUTES } from "@/utils/constants";
 import { useCartStore } from "@/utils/store/useCartStore";
 
 export const Cart = () => {
@@ -42,6 +43,7 @@ export const Cart = () => {
                     -
                   </Button>
                   {cartStore.actions.getProductQuantity(product)}
+
                   <Button
                     size="icon"
                     variant="outline"
@@ -66,7 +68,9 @@ export const Cart = () => {
                 >
                   Очистить корзину
                 </Button>
-                <Button>Оформить заказ</Button>
+                <a href={ROUTES.CREATE_ORDER}>
+                  <Button>Оформить заказ</Button>
+                </a>
               </div>
             </div>
           </div>

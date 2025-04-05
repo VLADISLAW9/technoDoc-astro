@@ -1,17 +1,27 @@
 ---
 import Header from "./components/Header/Header.astro";
+import "../../index.css";
+import { P } from "../ui/typography";
+import { Cloud } from "lucide-react";
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" type="text/css" href="src/index.css" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>TechnoDoc</title>
   </head>
-  <body class="px-100 py-5 flex flex-col gap-10">
+  <body class="flex flex-col h-screen">
     <Header />
-    <slot />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <footer
+      class="flex h-30 px-100 mt-10 items-center bg-gray-100 text-white justify-between"
+    >
+      <Cloud size={50} color="black" />
+      <P className="text-black">© TechnoDoc 2025</P>
+    </footer>
   </body>
 </html>

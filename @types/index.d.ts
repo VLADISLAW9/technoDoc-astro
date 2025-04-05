@@ -2,8 +2,30 @@ interface BaseResponse<DATA> {
   data: DATA;
 }
 
-type Brand = "apple" | "asus" | "google" | "samsung" | "sony" | "xiaomi";
-type Category = "headphones" | "laptop" | "phone" | "smartwatch" | "tablet";
+type Brand =
+  | "apple"
+  | "asus"
+  | "canon"
+  | "google"
+  | "lg"
+  | "samsung"
+  | "sony"
+  | "xiaomi";
+type Category =
+  | "camera"
+  | "console"
+  | "headphones"
+  | "laptop"
+  | "monitor"
+  | "phone"
+  | "smartwatch"
+  | "tablet"
+  | "TV";
+
+interface Banner {
+  link: string;
+  src: string;
+}
 
 interface Product {
   brand: Brand;
