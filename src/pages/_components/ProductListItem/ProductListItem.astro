@@ -1,0 +1,17 @@
+---
+import { Lead, Small } from "@/components/ui/typography";
+import { AddToCartButton } from "./components";
+
+const product = Astro.props as Product;
+---
+
+<li
+  class="rounded-3xl p-5 flex flex-col justify-between gap-3 hover:shadow-2xl"
+>
+  <img alt={product.name} class="w-full" src={product.images[0]} />
+  <Small>{product.name}</Small>
+  <div class="flex items-center justify-between gap-2">
+    <Lead>{product.price}</Lead>
+    <AddToCartButton client:load product={product} />
+  </div>
+</li>

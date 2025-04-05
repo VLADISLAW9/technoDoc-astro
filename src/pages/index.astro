@@ -1,7 +1,8 @@
 ---
 import Layout from "@/components/layouts/Layout.astro";
 import { H1 } from "@/components/ui/typography";
-import { AdvertisingCarousel, ProductListItem } from "./_components";
+import { AdvertisingCarousel } from "./_components/AdvertisingСarousel/AdvertisingСarousel";
+import ProductListItem from "./_components/ProductListItem/ProductListItem.astro";
 
 const products = await fetch(`${import.meta.env.API_URL}/products`).then(
   (response): Promise<Product[]> => response.json(),

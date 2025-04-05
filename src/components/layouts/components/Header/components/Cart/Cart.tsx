@@ -1,4 +1,4 @@
-import { Minus, Plus, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -6,54 +6,69 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-import { useCart } from "./hooks";
+import { Small } from "@/components/ui/typography";
+import { useCartStore } from "@/utils/store/useCartStore";
 
 export const Cart = () => {
-  const { state, actions } = useCart();
+  const cartStore = useCartStore();
 
   return (
     <Popover>
       <PopoverTrigger>
         <ShoppingCart className="cursor-pointer" size={24} color="white" />
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-96">
-        {!state.cart.length && (
+      <PopoverContent align="end" className="w-xl">
+        {!cartStore.state.cart.length && (
           <div className="flex flex-col gap-2">
-            <p>Корзина пуста</p>
+            <Small>Корзина пуста</Small>
           </div>
         )}
-        {!!state.cart.length && (
-          <div className="flex flex-col gap-2">
-            {state.cart.map((product) => (
+        {!!cartStore.state.cart.length && (
+          <div className="flex flex-col gap-5">
+            {cartStore.state.cart.map((product) => (
               <div
                 key={product.id}
-                className="flex justify-between items-center gap-2"
+                className="flex justify-between items-center"
               >
-                <img className="w-10 h-10" src={product.images[0]} />
-                <p>{product.name}</p>
-                <p>{product.price}</p>
+                <img className="w-13 " src={product.images[0]} />
+                <Small className="line-clamp-2 w-[250px]">{product.name}</Small>
+                <Small className="font-bold">{product.price}</Small>
                 <div className="flex items-center gap-2">
-                  <Button size="icon" variant="outline">
-                    <Minus
-                      className="cursor-pointer"
-                      size={24}
-                      color="white"
-                      onClick={() => actions.removeFromCart(product)}
-                    />
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={() => cartStore.actions.removeFromCart(product)}
+                  >
+                    -
                   </Button>
-                  {actions.getProductQuantity(product)}
-                  <Button size="icon" variant="outline">
-                    <Plus
-                      className="cursor-pointer"
-                      size={24}
-                      color="white"
-                      onClick={() => actions.addToCart(product)}
-                    />
+                  {cartStore.actions.getProductQuantity(product)}
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={() => cartStore.actions.addToCart(product)}
+                  >
+                    +
                   </Button>
                 </div>
               </div>
             ))}
+            <div className="flex justify-between items-center">
+              <div className="flex gap-2 items-center">
+                <Small className="font-bold">Итого:</Small>
+                <Small className="font-bold">
+                  {cartStore.state.totalPrice}
+                </Small>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => cartStore.actions.clearCart()}
+                >
+                  Очистить корзину
+                </Button>
+                <Button>Оформить заказ</Button>
+              </div>
+            </div>
           </div>
         )}
       </PopoverContent>
