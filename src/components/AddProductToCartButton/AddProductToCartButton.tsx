@@ -3,11 +3,7 @@ import { ShoppingCart } from "lucide-react";
 import type { ButtonProps } from "@/components/ui/button";
 
 import { Button } from "@/components/ui/button";
-import {
-  addToCart,
-  removeFromCart,
-  useCartStore,
-} from "@/utils/store/cartStore";
+import { addToCart, removeFromCart, useCartStore } from "@/utils/store";
 
 interface AddProductToCartButtonProps extends ButtonProps {
   product: Product;
