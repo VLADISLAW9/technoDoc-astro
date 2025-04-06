@@ -3,7 +3,11 @@ import { ShoppingCart } from "lucide-react";
 import type { ButtonProps } from "@/components/ui/button";
 
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/utils/store/useCartStore";
+import {
+  addToCart,
+  removeFromCart,
+  useCartStore,
+} from "@/utils/store/cartStore";
 
 interface AddProductToCartButtonProps extends ButtonProps {
   product: Product;
@@ -14,32 +18,34 @@ export const AddProductToCartButton = ({
   className,
   ...props
 }: AddProductToCartButtonProps) => {
-  const cartStore = useCartStore();
+  const cart = useCartStore();
+
+  const quantity = cart.find(({ id }) => id === product.id)?.quantity;
 
   return (
     <>
-      {!cartStore.actions.getProductQuantity(product) && (
+      {!quantity && (
         <Button
           className={className}
-          onClick={() => cartStore.actions.addToCart(product)}
+          onClick={() => addToCart(product)}
           {...props}
         >
           <ShoppingCart />В корзину
         </Button>
       )}
-      {!!cartStore.actions.getProductQuantity(product) && (
+      {!!quantity && (
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
-            onClick={() => cartStore.actions.removeFromCart(product)}
+            onClick={() => removeFromCart(product)}
             {...props}
           >
             -
           </Button>
-          <span>{cartStore.actions.getProductQuantity(product)}</span>
+          <span>{quantity}</span>
           <Button
             variant="outline"
-            onClick={() => cartStore.actions.addToCart(product)}
+            onClick={() => addToCart(product)}
             {...props}
           >
             +

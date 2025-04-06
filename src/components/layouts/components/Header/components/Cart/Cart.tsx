@@ -1,5 +1,7 @@
 import { ShoppingCart } from "lucide-react";
 
+import type { CartProduct } from "@/utils/store/cartStore";
+
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -8,10 +10,16 @@ import {
 } from "@/components/ui/popover";
 import { Small } from "@/components/ui/typography";
 import { ROUTES } from "@/utils/constants";
-import { useCartStore } from "@/utils/store/useCartStore";
+import {
+  addToCart,
+  clearCart,
+  getTotalPrice,
+  removeFromCart,
+  useCartStore,
+} from "@/utils/store/cartStore";
 
 export const Cart = () => {
-  const cartStore = useCartStore();
+  const cart = useCartStore();
 
   return (
     <Popover>
@@ -19,14 +27,14 @@ export const Cart = () => {
         <ShoppingCart className="cursor-pointer" size={24} color="white" />
       </PopoverTrigger>
       <PopoverContent align="end" className="w-xl">
-        {!cartStore.state.cart.length && (
+        {!cart.length && (
           <div className="flex flex-col gap-2">
             <Small>Корзина пуста</Small>
           </div>
         )}
-        {!!cartStore.state.cart.length && (
+        {!!cart.length && (
           <div className="flex flex-col gap-5">
-            {cartStore.state.cart.map((product) => (
+            {cart.map((product: CartProduct) => (
               <div
                 key={product.id}
                 className="flex justify-between items-center"
@@ -38,16 +46,15 @@ export const Cart = () => {
                   <Button
                     size="icon"
                     variant="outline"
-                    onClick={() => cartStore.actions.removeFromCart(product)}
+                    onClick={() => removeFromCart(product)}
                   >
                     -
                   </Button>
-                  {cartStore.actions.getProductQuantity(product)}
-
+                  {product.quantity}
                   <Button
                     size="icon"
                     variant="outline"
-                    onClick={() => cartStore.actions.addToCart(product)}
+                    onClick={() => addToCart(product)}
                   >
                     +
                   </Button>
@@ -57,15 +64,10 @@ export const Cart = () => {
             <div className="flex justify-between items-center">
               <div className="flex gap-2 items-center">
                 <Small className="font-bold">Итого:</Small>
-                <Small className="font-bold">
-                  {cartStore.state.totalPrice}
-                </Small>
+                <Small className="font-bold">{getTotalPrice()}</Small>
               </div>
               <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  onClick={() => cartStore.actions.clearCart()}
-                >
+                <Button variant="outline" onClick={() => clearCart()}>
                   Очистить корзину
                 </Button>
                 <a href={ROUTES.CREATE_ORDER}>
